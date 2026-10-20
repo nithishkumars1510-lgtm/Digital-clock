@@ -1,48 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Advanced World Digital Clock</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <main class="clock-card">
-    <p class="eyebrow" id="greetingText">WELCOME</p>
-    <h1>Digital Clock</h1>
+<body data-theme="dark">
 
-    <!-- Time Zone Selector -->
-    <div class="zone-selector">
-      <label for="timezoneSelect">Select Country:</label>
-      <select id="timezoneSelect">
-        <option value="local">Local Time (Device)</option>
-        <option value="Asia/Kolkata">India (IST)</option>
-        <option value="Asia/Singapore">Singapore (SGT)</option>
-        <option value="Europe/London">UK (GMT/BST)</option>
-        <option value="America/New_York">USA (EST/EDT)</option>
-      </select>
-    </div>
+  <div class="app">
 
-    <!-- Clock Display -->
-    <div id="clockDisplay" class="clock">00:00:00 AM</div>
+    <header class="glass panel">
+      <div class="brand">
+        <div class="logo">🌍</div>
+        <div>
+          <h1>World Digital Clock</h1>
+          <p class="subtitle">Time • Alarm • Timer • Weather</p>
+        </div>
+      </div>
 
-    <!-- Date Panel -->
-    <section class="date-panel">
-      <span class="date-label">TODAY</span>
-      <p id="dayDisplay" class="day">Loading...</p>
-      <p id="dateDisplay" class="date">Loading...</p>
+      <div class="controls">
+        <select id="mainZone"></select>
+
+        <input type="color" id="accentColor" value="#00e5ff" title="Accent color" />
+
+        <button id="formatBtn">12H</button>
+        <button id="analogBtn">Analog</button>
+        <button id="themeBtn">Dark</button>
+        <button id="notifyBtn">🔔 Notify</button>
+      </div>
+    </header>
+
+    <section class="glass panel clock-section">
+      <p class="greeting" id="greeting">Good Morning</p>
+      <p class="date" id="dateText">Loading...</p>
+
+      <div class="clock-wrap" id="clockWrap">
+        <div class="digital-clock" id="digitalClock">
+          <span id="clockHours">00</span>:
+          <span id="clockMinutes">00</span>:
+          <span id="clockSeconds" class="seconds">00</span>
+          <span id="clockAmPm" class="ampm"></span>
+        </div>
+
+        <div class="analog-clock hidden" id="analogClock">
+          <div class="hand hour" id="hourHand"></div>
+          <div class="hand minute" id="minuteHand"></div>
+          <div class="hand second" id="secondHand"></div>
+          <div class="center-dot"></div>
+        </div>
+      </div>
+
+      <div class="weather glass mini-panel" id="weatherBox">
+        <strong>Weather</strong>
+        <span id="weatherText">Click “Enable Location Weather”</span>
+        <button id="weatherBtn">Enable Location Weather</button>
+      </div>
     </section>
 
-    <!-- Custom Controls & Color Picker -->
-    <div class="controls">
-      <button id="formatToggle" type="button">Switch to 24-Hour</button>
-      
-      <div class="color-picker-wrapper">
-        <label for="accentColor">Theme Color:</label>
-        <input type="color" id="accentColor" value="#00f2fe">
+    <section class="glass panel">
+      <h2>World Clocks</h2>
+
+      <div class="add-clock">
+        <select id="customZone"></select>
+        <button id="addClockBtn">+ Add Clock</button>
       </div>
-    </div>
-  </main>
+
+      <div class="clock-grid" id="customClocks"></div>
+    </section>
+
+    <section class="glass panel tools">
+      <div class="tool">
+        <h2>⏰ Alarm</h2>
+        <input type="time" id="alarmTime" />
+        <button id="setAlarmBtn">Set Alarm</button>
+        <button id="clearAlarmBtn">Clear</button>
+        <p id="alarmStatus">No alarm set</p>
+      </div>
+
+      <div class="tool">
+        <h2>⏱️ Stopwatch</h2>
+        <p class="timer-display" id="stopwatchDisplay">00:00:00</p>
+        <button id="startStopwatch">Start</button>
+        <button id="stopStopwatch">Stop</button>
+        <button id="resetStopwatch">Reset</button>
+      </div>
+
+      <div class="tool">
+        <h2>⏳ Countdown</h2>
+        <input type="number" id="countdownMinutes" min="1" value="5" />
+        <button id="startCountdown">Start</button>
+        <button id="resetCountdown">Reset</button>
+        <p class="timer-display" id="countdownDisplay">05:00</p>
+      </div>
+
+      <div class="tool">
+        <h2>🍅 Pomodoro</h2>
+        <p class="timer-display" id="pomodoroDisplay">25:00</p>
+        <button id="startPomodoro">Start Focus</button>
+        <button id="resetPomodoro">Reset</button>
+        <p id="pomodoroStatus">Focus session</p>
+      </div>
+    </section>
+
+    <section class="glass panel settings">
+      <h2>🎨 Appearance</h2>
+
+      <label>
+        Font
+        <select id="fontSelect">
+          <option value="Consolas, monospace">Monospace</option>
+          <option value="Segoe UI, sans-serif">Modern</option>
+          <option value="Georgia, serif">Serif</option>
+          <option value="Arial, sans-serif">Simple</option>
+        </select>
+      </label>
+
+      <label>
+        Clock Size
+        <input type="range" id="sizeRange" min="40" max="140" value="80" />
+      </label>
+
+      <label>
+        Glow Intensity
+        <input type="range" id="glowRange" min="0" max="40" value="18" />
+      </label>
+    </section>
+
+    <footer class="glass panel">
+      <p>Shortcuts: <kbd>T</kbd> 12/24H • <kbd>A</kbd> Analog • <kbd>D</kbd> Theme • <kbd>F</kbd> Fullscreen</p>
+    </footer>
+
+  </div>
 
   <script src="script.js"></script>
 </body>

@@ -1,157 +1,373 @@
 
+:root {
+  --accent: #00e5ff;
+  --accent-soft: rgba(0, 229, 255, 0.20);
+  --glow: 18px;
+  --clock-size: 80px;
+  --clock-font: Consolas, monospace;
+
+  --bg1: #05060f;
+  --bg2: #0b1024;
+  --bg3: #160b2b;
+  --glass: rgba(255, 255, 255, 0.07);
+  --border: rgba(255, 255, 255, 0.16);
+  --text: #f4f7ff;
+  --muted: rgba(244, 247, 255, 0.65);
+}
+
+body[data-theme="light"] {
+  --bg1: #eef3ff;
+  --bg2: #dfe8ff;
+  --bg3: #f4ecff;
+  --glass: rgba(255, 255, 255, 0.55);
+  --border: rgba(0, 0, 0, 0.10);
+  --text: #101528;
+  --muted: rgba(16, 21, 40, 0.65);
+}
+
+body[data-theme="amoled"] {
+  --bg1: #000000;
+  --bg2: #000000;
+  --bg3: #000000;
+  --glass: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.12);
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.60);
+}
+
 * {
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
-    padding: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    background: #0b0b0b;
-    color: white;
+  min-height: 100vh;
+  padding: 24px;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 20%, var(--accent-soft), transparent 35%),
+    radial-gradient(circle at 85% 80%, rgba(140, 0, 255, 0.18), transparent 40%),
+    linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
 }
 
-.clock-card {
-    width: 100%;
-    max-width: 390px;
-    padding: 28px 22px;
-    text-align: center;
-    background: #1b1b1b;
-    border: 1px solid #353535;
-    border-radius: 18px;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+.app {
+  width: min(1100px, 100%);
+  margin: auto;
+  display: grid;
+  gap: 18px;
 }
 
-.eyebrow {
-    margin: 0 0 8px;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: #a3a3a3;
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35),
+    0 0 var(--glow) var(--accent-soft);
+}
+
+.panel {
+  padding: 22px;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  border-radius: 16px;
+  border: 1px solid var(--accent);
+  background: linear-gradient(145deg, var(--accent), transparent);
+  box-shadow: 0 0 var(--glow) var(--accent-soft);
 }
 
 h1 {
-    margin: 0 0 20px;
-    font-size: 25px;
+  font-size: clamp(18px, 3vw, 26px);
 }
 
-.clock {
-    padding: 16px 6px;
-    border-radius: 10px;
-    background: #050505;
-    border: 1px solid #333;
-    font-size: clamp(24px, 7vw, 34px);
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.date-panel {
-    margin: 18px 0;
-    padding: 14px 10px;
-    border: 1px solid #555;
-    border-radius: 12px;
-    background: #252525;
-}
-
-.date-label {
-    display: block;
-    font-size: 9px;
-    letter-spacing: 2.5px;
-    color: #a3a3a3;
-    margin-bottom: 7px;
-}
-
-.day {
-    margin: 0;
-    font-size: 21px;
-    font-weight: bold;
-}
-
-.date {
-    margin: 5px 0 0;
-    font-size: 13px;
-    color: #d4d4d4;
+.subtitle {
+  font-size: 13px;
+  color: var(--muted);
 }
 
 .controls {
-    display: grid;
-    gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+select,
+input,
+button {
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+}
+
+select {
+  padding: 0 12px;
+  min-width: 200px;
+}
+
+input[type="color"] {
+  width: 54px;
+  padding: 4px;
 }
 
 button {
+  padding: 0 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+button:hover,
+select:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 var(--glow) var(--accent-soft);
+}
+
+.clock-section {
+  text-align: center;
+}
+
+.greeting {
+  font-size: clamp(16px, 2.5vw, 22px);
+  color: var(--muted);
+}
+
+.date {
+  margin: 8px 0 24px;
+  color: var(--muted);
+}
+
+.digital-clock {
+  font-family: var(--clock-font);
+  font-size: var(--clock-size);
+  font-weight: 800;
+  letter-spacing: 3px;
+  line-height: 1;
+  text-shadow:
+    0 0 12px var(--accent),
+    0 0 calc(var(--glow) * 2) var(--accent-soft);
+}
+
+.seconds,
+.ampm {
+  color: var(--accent);
+}
+
+.ampm {
+  font-size: calc(var(--clock-size) * 0.28);
+  margin-left: 12px;
+}
+
+.analog-clock {
+  width: min(280px, 70vw);
+  height: min(280px, 70vw);
+  margin: auto;
+  border-radius: 50%;
+  position: relative;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 var(--glow) var(--accent-soft);
+}
+
+.hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform-origin: bottom center;
+  border-radius: 10px;
+  background: var(--text);
+}
+
+.hour {
+  width: 6px;
+  height: 26%;
+  margin-left: -3px;
+}
+
+.minute {
+  width: 4px;
+  height: 36%;
+  margin-left: -2px;
+}
+
+.second {
+  width: 2px;
+  height: 42%;
+  margin-left: -1px;
+  background: var(--accent);
+}
+
+.center-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translate(-50%, -50%);
+}
+
+.weather {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.weather span {
+  color: var(--muted);
+}
+
+h2 {
+  margin-bottom: 14px;
+  font-size: 18px;
+}
+
+.add-clock {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.clock-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.clock-card {
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+}
+
+.clock-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.clock-card .time {
+  font-family: var(--clock-font);
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--accent);
+  text-shadow: 0 0 var(--glow) var(--accent-soft);
+}
+
+.clock-card .date {
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.remove-btn {
+  margin-top: 12px;
+  height: 34px;
+  font-size: 12px;
+}
+
+.tools,
+.settings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.tool {
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+}
+
+.timer-display {
+  font-family: var(--clock-font);
+  font-size: 34px;
+  font-weight: 800;
+  margin: 12px 0;
+  color: var(--accent);
+}
+
+.tool input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.tool button {
+  margin: 4px 6px 4px 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+label select,
+label input {
+  width: 100%;
+  margin-top: 8px;
+}
+
+footer {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+kbd {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 11px;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 650px) {
+  header,
+  .controls,
+  .add-clock {
+    justify-content: center;
+    text-align: center;
+  }
+
+  select {
     width: 100%;
-    padding: 11px 12px;
-    border: 1px solid #777;
-    border-radius: 9px;
-    background: #f5f5f5;
-    color: #111;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button:focus-visible {
-    outline: 3px solid #999;
-    outline-offset: 3px;
-}
-
-body.light-theme {
-    background: #eee;
-    color: #111;
-}
-
-body.light-theme .clock-card {
-    background: white;
-    border-color: #ccc;
-}
-
-body.light-theme .eyebrow,
-body.light-theme .date-label {
-    color: #555;
-}
-
-body.light-theme .clock {
-    background: #f4f4f4;
-    color: #111;
-    border-color: #ccc;
-}
-
-body.light-theme .date-panel {
-    background: #f8f8f8;
-    border-color: #ccc;
-}
-
-body.light-theme .date {
-    color: #333;
-}
-
-body.light-theme button {
-    background: #111;
-    color: white;
-    border-color: #111;
-}
-
-@media (max-width: 360px) {
-    body {
-        padding: 10px;
-    }
-
-    .clock-card {
-        padding: 22px 13px;
-    }
-
-    .day {
-        font-size: 19px;
-    }
-
-    .date {
-        font-size: 12px;
-    }
-
-    .clock {
-        font-size: 24px;
-        letter-spacing: 0;
-    }
+  }
 }
