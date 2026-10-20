@@ -1,31 +1,49 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Clock</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced World Digital Clock</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main class="clock-card">
-        <p class="eyebrow">LOCAL TIME</p>
-        <h1>Digital Clock</h1>
+  <main class="clock-card">
+    <p class="eyebrow" id="greetingText">WELCOME</p>
+    <h1>Digital Clock</h1>
 
-        <div id="clockDisplay" class="clock"></div>
+    <!-- Time Zone Selector -->
+    <div class="zone-selector">
+      <label for="timezoneSelect">Select Country:</label>
+      <select id="timezoneSelect">
+        <option value="local">Local Time (Device)</option>
+        <option value="Asia/Kolkata">India (IST)</option>
+        <option value="Asia/Singapore">Singapore (SGT)</option>
+        <option value="Europe/London">UK (GMT/BST)</option>
+        <option value="America/New_York">USA (EST/EDT)</option>
+      </select>
+    </div>
 
-        <section class="date-panel">
-            <span class="date-label">TODAY</span>
-            <p id="dayDisplay" class="day"></p>
-            <p id="dateDisplay" class="date"></p>
-        </section>
+    <!-- Clock Display -->
+    <div id="clockDisplay" class="clock">00:00:00 AM</div>
 
-        <div class="controls">
-            <button id="formatToggle">Switch to 24-hour</button>
-            <button id="themeToggle">Light theme</button>
-        </div>
-    </main>
+    <!-- Date Panel -->
+    <section class="date-panel">
+      <span class="date-label">TODAY</span>
+      <p id="dayDisplay" class="day">Loading...</p>
+      <p id="dateDisplay" class="date">Loading...</p>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- Custom Controls & Color Picker -->
+    <div class="controls">
+      <button id="formatToggle" type="button">Switch to 24-Hour</button>
+      
+      <div class="color-picker-wrapper">
+        <label for="accentColor">Theme Color:</label>
+        <input type="color" id="accentColor" value="#00f2fe">
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
